@@ -19,9 +19,42 @@ namespace AnimalShelter.Controllers
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Animal>>> Get()
+    public async Task<ActionResult<IEnumerable<Animal>>> Get(string species, string adoptable, string gender ,string name)
     {
-      return await _db.Animals.ToListAsync();
+      var query = _db.Animals.AsQueryable();
+
+      if (species != null)
+      {
+        query = query.Where(entry => entry.Species == species);
+      }
+
+      if (adoptable != null)
+      {
+        if (adoptable == "true")
+        {
+          query = query.Where(entry => entry.AvailableForAdoption == true);
+        }
+        else if (adoptable == "false")
+        {
+          query = query.Where(entry => entry.AvailableForAdoption == false);
+        }
+        else
+        {
+          return BadRequest(new { Message = "adoptable must have a value of true or false" });
+        }
+      }
+
+      if (gender != null)
+      {
+        query = query.Where(entry => entry.Gender == gender);
+      }
+
+      if (name != null)
+      {
+        query = query.Where(entry => entry.Name == name);
+      }
+
+      return await query.ToListAsync();
     }
 
     [HttpGet("{id}")]
