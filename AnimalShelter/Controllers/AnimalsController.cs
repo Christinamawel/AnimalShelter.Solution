@@ -5,12 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using AnimalShelter.Models;
 using System.Linq;
 
-namespace AnimalShelter.Controllers
+namespace AnimalShelter.Controllers.V1
 {
   [Produces("application/json")]
-  [Route("api/[controller]")]
+  [Route("api/v{version:apiVersion}/[controller]")]
   [ApiVersion("1.0")]
-  [ApiVersion("2.0")]
   [ApiController]
   public class AnimalsController : ControllerBase
   {
@@ -21,6 +20,7 @@ namespace AnimalShelter.Controllers
       _db = db;
     }
 
+    [MapToApiVersion("1.0")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Animal>>> Get(string species, string adoptable, string gender ,string name)
     {
@@ -129,6 +129,65 @@ namespace AnimalShelter.Controllers
       await _db.SaveChangesAsync();
 
       return NoContent();
+    }
+  }
+}
+
+namespace AnimalShelter.Controllers.V2
+{
+  [Produces("application/json")]
+  [Route("api/v{version:apiVersion}/[controller]")]
+  [ApiVersion("2.0")]
+  [ApiController]
+  public class AnimalsController : ControllerBase
+  {
+    private readonly AnimalShelterContext _db;
+
+    public AnimalsController(AnimalShelterContext db)
+    {
+      _db = db;
+    }
+
+    [MapToApiVersion("2.0")]
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Animal>>> Get(string species, string adoptable, string gender ,string name)
+    {
+      var query = _db.Animals.AsQueryable();
+
+      if (species != null)
+      {
+        query = query.Where(entry => entry.Species == species);
+      }
+
+      if (adoptable != null)
+      {
+        if (adoptable == "true")
+        {
+          query = query.Where(entry => entry.AvailableForAdoption == true);
+        }
+        else if (adoptable == "false")
+        {
+          query = query.Where(entry => entry.AvailableForAdoption == false);
+        }
+        else
+        {
+          return BadRequest(new { Message = "adoptable must have a value of true or false" });
+        }
+      }
+
+      if (gender != null)
+      {
+        query = query.Where(entry => entry.Gender == gender);
+      }
+
+      if (name != null)
+      {
+        query = query.Where(entry => entry.Name == name);
+      }
+
+      query = query.OrderBy(animal => animal.Name);
+
+      return await query.ToListAsync();
     }
   }
 }
