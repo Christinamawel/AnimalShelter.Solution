@@ -14,8 +14,6 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using AnimalShelter.Models;
 
-
-
 namespace AnimalShelter
 {
     public class Startup
@@ -37,25 +35,17 @@ namespace AnimalShelter
 
             services.AddMvc();
 
-            services.AddApiVersioning(setup =>
+            services.AddApiVersioning(options =>
             {
-                setup.DefaultApiVersion = new ApiVersion(1, 0);
-                setup.AssumeDefaultVersionWhenUnspecified = true;
-                setup.ReportApiVersions = true;
-            });
-
-            services.AddVersionedApiExplorer(setup =>
-            {
-                setup.GroupNameFormat = "'v'VVV";
-                setup.SubstituteApiVersionInUrl = true;
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.ReportApiVersions = true;
             });
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
-
-            services.ConfigureOptions<ConfigureSwaggerOptions>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,64 +65,13 @@ namespace AnimalShelter
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapSwagger();
             });
 
-            
-
-            app.UseSwaggerUI(options =>
+            app.UseSwaggerUI(c =>
             {
-                foreach (var description in provider.ApiVersionDescriptions)
-                {
-                    options.SwaggerEndpoint(
-                        $"/swagger/{description.GroupName}/swagger.json", 
-                        description.GroupName.ToUpperInvariant());
-                }
+                c.SwaggerEndpoint("v1/swagger.json", "My API V1");
             });
-        }
-    }
-
-    public class ConfigureSwaggerOptions
-        : IConfigureNamedOptions<SwaggerGenOptions>
-    {
-        private readonly IApiVersionDescriptionProvider provider;
-
-        public ConfigureSwaggerOptions(
-            IApiVersionDescriptionProvider provider)
-        {
-            this.provider = provider;
-        }
-
-        public void Configure(SwaggerGenOptions options)
-        {
-            // add swagger document for every API version discovered
-            foreach (var description in provider.ApiVersionDescriptions)
-            {
-                options.SwaggerDoc(
-                    description.GroupName, 
-                    CreateVersionInfo(description));
-            }
-        }
-
-        public void Configure(string name, SwaggerGenOptions options)
-        {
-            Configure(options);
-        }
-
-        private OpenApiInfo CreateVersionInfo(
-                ApiVersionDescription description)
-        {
-            var info = new OpenApiInfo()
-            {
-                Title = "Animal Shelter",
-                Version = description.ApiVersion.ToString()
-            };
-
-            if (description.IsDeprecated)
-            {
-                info.Description += " This API version has been deprecated.";
-            }
-
-            return info;
         }
     }
 }
