@@ -2,18 +2,18 @@
 
 #### By **Christina Welch**
 
+![Animal Shelter Illustration](AnimalShelter/Assets/img/animal-illustration.jpg)
+
 #### _An API that tracks Animals for an Animal Shelter_
 
 ## Technologies Used
 
-* C#
-* .net
-* ASP.NET Core
-* Razor
-* CSS
-* HTML
-* Entity Framework
-* SQL
+* [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
+* [ASP.NET Core MVC](https://docs.microsoft.com/en-us/aspnet/core/mvc/overview?view=aspnetcore-3.1)
+* [MySQL 8.0.20](https://dev.mysql.com/)
+* [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/)
+* [Swagger](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-nswag?view=aspnetcore-3.1&tabs=visual-studio)
+
 
 ## Description
 
@@ -21,7 +21,28 @@ _End of week friday project for epicodus school made to demonstrate skills in cr
 
 ## Setup/Installation Requirements
 
+### 🔧 Getting Started
+### Install .NET Core
+* On macOS Mojave or later
+  * [Click here](https://dotnet.microsoft.com/download/thank-you/dotnet-sdk-2.2.106-macos-x64-installer) to download the .NET Core SDK from Microsoft Corp for macOS.
+* On Windows 10 x64 or later
+  * [Click here](https://dotnet.microsoft.com/download/thank-you/dotnet-sdk-2.2.203-windows-x64-installer) to download the 64-bit .NET Core SDK from Microsoft Corp for Windows.
+
+### Install dotnet script
+ Enter the command ``dotnet tool install -g dotnet-script`` in Terminal for macOS or PowerShell for Windows.
+
+### Install VsCode(or a code editor of choice)
+[Download VsCode here](https://www.npmjs.com/)
+
+#### Install MySQL Workbench (Optional)
+To View and edit the database with a UI, Download and install the appropriate version of [MySQL Workbench](https://dev.mysql.com/downloads/workbench/)
+
+
+
+### ⚙️ Setup and Use
+
 * Clone this repository to your desktop
+[Learn How](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
 * Open AnimalShelter.Solution/AnimalShelter in VScode or a code editor of your choice
 * Create a new file and name it appsettings.json
 * in the file add the following
