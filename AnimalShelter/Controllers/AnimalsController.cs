@@ -8,9 +8,9 @@ using System.Linq;
 namespace AnimalShelter.Controllers.V1
 {
   [Produces("application/json")]
-  [Route("api/v{version:apiVersion}/[controller]")]
+  [Route("api/[controller]")]
   [ApiVersion("1.0")]
-  [ApiController]
+  [ApiVersion("2.0")]
   public class AnimalsController : ControllerBase
   {
     private readonly AnimalShelterContext _db;
@@ -60,6 +60,7 @@ namespace AnimalShelter.Controllers.V1
       return await query.ToListAsync();
     }
 
+    [MapToApiVersion("1.0")]
     [HttpGet("{id}")]
     public async Task<ActionResult<Animal>> GetAnimal(int id)
     {
