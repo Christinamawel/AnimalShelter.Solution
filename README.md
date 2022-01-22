@@ -1,12 +1,13 @@
 # _Animal Shelter API_        
 
-#### By **Christina Welch**
+#### By **Christina Welch** 
+<br>
 
 ![Animal Shelter Illustration](AnimalShelter/Assets/img/animal-illustration.jpg)
 
 #### _An API that tracks Animals for an Animal Shelter_
 
-## Technologies Used
+## 💾 Technologies Used
 
 * [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
 * [ASP.NET Core MVC](https://docs.microsoft.com/en-us/aspnet/core/mvc/overview?view=aspnetcore-3.1)
@@ -15,11 +16,11 @@
 * [Swagger](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-nswag?view=aspnetcore-3.1&tabs=visual-studio)
 
 
-## Description
+## 🐶 Description
 
 _End of week friday project for epicodus school made to demonstrate skills in creating an API. This API tracks Animals for an Animal Shelter. It uses Swagger to better show the api calls in a UI and Versioning to allow for new versions as the API is updated._
 
-## Setup/Installation Requirements
+## 💻 Setup/Installation Requirements
 
 ### 🔧 Getting Started
 ### Install .NET Core
@@ -34,7 +35,7 @@ _End of week friday project for epicodus school made to demonstrate skills in cr
 ### Install VsCode(or a code editor of choice)
 [Download VsCode here](https://www.npmjs.com/)
 
-#### Install MySQL Workbench (Optional)
+### Install MySQL Workbench (Optional)
 To View and edit the database with a UI, Download and install the appropriate version of [MySQL Workbench](https://dev.mysql.com/downloads/workbench/)
 
 
@@ -72,11 +73,11 @@ Note: make sure to replace [YOUR-PASSWORD-HERE] with your password for SQL.
 ```
 * type dotnet ef database update into the terminal then type dotnet run
 
-## Known Bugs
+## ❌ Known Bugs
 
 the Swagger UI doesnt work well with versioning and may not show versions for methods correctly
 
-## License
+## 📃 License
 
 MIT License
 
