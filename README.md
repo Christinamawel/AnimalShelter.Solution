@@ -7,6 +7,8 @@
 
 #### _An API that tracks Animals for an Animal Shelter_
 
+<br>
+
 ## 💾 Technologies Used
 
 * [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
@@ -15,10 +17,13 @@
 * [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/)
 * [Swagger](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-nswag?view=aspnetcore-3.1&tabs=visual-studio)
 
+<br>
 
 ## 🐶 Description
 
 _End of week friday project for epicodus school made to demonstrate skills in creating an API. This API tracks Animals for an Animal Shelter. It uses Swagger to better show the api calls in a UI and Versioning to allow for new versions as the API is updated._
+
+<br>
 
 ## 💻 Setup/Installation Requirements
 
@@ -72,6 +77,59 @@ Note: make sure to replace [YOUR-PASSWORD-HERE] with your password for SQL.
 ...
 ```
 * type dotnet ef database update into the terminal then type dotnet run
+
+<br>
+
+## API Endpoints
+
+### GET Request
+GET localhost:5000/api/animals
+optional parameters
+* species
+* adoptable (Must be true or false in a string)
+* gender
+* name
+example of using parameters:
+GET localhost:5000/api/animals/?species="Cat"&adoptable="true"
+
+### Get by ID
+GET localhost:5000/api/animals/1
+last number is the id number you want to find
+
+### Post Request
+
+Post http://localhost:5000/api/animals
+include a body(in RAW JSON format)
+{
+  "name": "George",
+  "species": "Cat",
+  "breed": "Main Coon",
+  "age": 7,
+  "gender": "Male",
+  "spayedOrNeutered": true,
+  "availableForAdoption": true
+}
+
+### PUT Request
+
+PUT http://localhost:5000/api/animals/1
+
+{
+  "animalId": 1,
+  "name": "George",
+  "species": "Cat",
+  "breed": "Main Coon",
+  "age": 8,
+  "gender": "Male",
+  "spayedOrNeutered": true,
+  "availableForAdoption": true
+}
+
+### DELETE Request
+
+DELETE http://localhost:5000/api/animals/1
+
+<br>
 
 ## ❌ Known Bugs
 
